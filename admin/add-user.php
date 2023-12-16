@@ -1,4 +1,29 @@
-<?php include "header.php"; ?>
+<?php include "header.php"; 
+
+if(isset($_POST["save"])){
+    include"config.php";
+// mysqli_real_escape_string($conn, -> this is for data protection from hacker
+    $fname = mysqli_real_escape_string($conn,$_POST["fname"]);
+    $lname = mysqli_real_escape_string($conn,$_POST["lname"]);
+    $user = mysqli_real_escape_string($conn,$_POST["user"]);
+    // md5 -> la password encript garxa j sukai password rakha
+    $password = mysqli_real_escape_string($conn,md5($_POST["password"]));
+    $role = mysqli_real_escape_string($conn,$_POST["role"]);
+   $sql = "SELECT username FROM user WHERE username = '{$user}' "; 
+//    die();
+//    
+    $result = mysqli_query($conn,$sql) or die("Query failed");
+    if (mysqli_num_rows($result) > 0){
+        // $row = mysqli_fetch_array($result);
+echo "<p style='color:red;text-align:center;margin:10px 0'>User Name already exits.</>";
+}else{
+$sql1 = "INSERT INTO user (first_name,last_name,username,password,role ) VALUE ('{$fname}','{$lname}','{$user}','{$password}','{$role}')";
+if(mysqli_query($conn,$sql1)){
+    header("Location:{hostname}/admin/users.php");
+};
+}
+}
+?>
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -7,7 +32,7 @@
               </div>
               <div class="col-md-offset-3 col-md-6">
                   <!-- Form Start -->
-                  <form  action="" method ="POST" autocomplete="off">
+                  <form  action="<?php $_SERVER['PHP_SELF']?>" method ="POST" autocomplete="off">
                       <div class="form-group">
                           <label>First Name</label>
                           <input type="text" name="fname" class="form-control" placeholder="First Name" required>
