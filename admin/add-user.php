@@ -17,9 +17,10 @@ if(isset($_POST["save"])){
         // $row = mysqli_fetch_array($result);
 echo "<p style='color:red;text-align:center;margin:10px 0'>User Name already exits.</>";
 }else{
-$sql1 = "INSERT INTO user (first_name,last_name,username,password,role ) VALUE ('{$fname}','{$lname}','{$user}','{$password}','{$role}')";
+$sql1 = "INSERT INTO user (first_name,last_name,username,password,role ) VALUES ('{$fname}','{$lname}','{$user}','{$password}','{$role}')";
 if(mysqli_query($conn,$sql1)){
-    header("Location:{hostname}/admin/users.php");
+    header("Location:{$hostname}/admin/users.php");
+    // header("Location:http://localhost/news-site/admin/users.php");
 };
 }
 }
@@ -32,7 +33,7 @@ if(mysqli_query($conn,$sql1)){
               </div>
               <div class="col-md-offset-3 col-md-6">
                   <!-- Form Start -->
-                  <form  action="<?php $_SERVER['PHP_SELF']?>" method ="POST" autocomplete="off">
+                  <form  action="<?php $_SERVER['PHP_SELF'];?>" method ="POST" autocomplete="off">
                       <div class="form-group">
                           <label>First Name</label>
                           <input type="text" name="fname" class="form-control" placeholder="First Name" required>

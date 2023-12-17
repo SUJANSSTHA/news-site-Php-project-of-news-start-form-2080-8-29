@@ -11,22 +11,20 @@ if(isset($_POST["submit"])){
     // md5 -> la password encript garxa j sukai password rakha
     //! $password = mysqli_real_escape_string($conn,md5($_POST["password"]));
     $role = mysqli_real_escape_string($conn,$_POST["role"]);
-   $sql = "UPDATE user SET first_name = '{$fname}',last_name = '{$lname}',username = '{$user}',role = '{$role}'WHERE user_id='{$userid}'"; 
-//    die();
-//    
-    $result = mysqli_query($conn,$sql) or die("Query failed");
-    if (mysqli_num_rows($result) > 0){
-        // $row = mysqli_fetch_array($result);
-echo "<p style='color:red;text-align:center;margin:10px 0'>User Name already exits.</>";
-}else{
-$sql1 = "INSERT INTO user (first_name,last_name,username,password,role ) VALUE ('{$fname}','{$lname}','{$user}','{$password}','{$role}')";
-if(mysqli_query($conn,$sql1)){
-    header("Location:{hostname}/admin/users.php");
-};
+    //* update command 
+   $sql = "UPDATE user SET first_name = '{$fname}',last_name = '{$lname}',username = '{$user}',role = '{$role}' WHERE user_id='{$userid}'"; 
+
+
+
+       if(mysqli_query($conn,$sql)){
+    header("Location:{$hostname}/admin/users.php");
+    // header("Location:http://localhost/news-site/admin/users.php");
+
 }
 }
 
 ?> 
+<!-- Next -->
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -47,7 +45,7 @@ if(mysqli_query($conn,$sql1)){
 
                 ?>
                   <!-- Form Start -->
-                  <form  action="<?php $_SERVER['PHP_SELF']?>" method ="POST">
+                  <form  action="<?php $_SERVER['PHP_SELF'];?>" method ="POST">
                       <div class="form-group">
                           <input type="hidden" name="user_id"  class="form-control" value="<?php echo $row['user_id'];  ?>" placeholder="" >
                       </div>
