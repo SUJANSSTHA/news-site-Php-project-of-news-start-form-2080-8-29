@@ -12,6 +12,7 @@ $sql = "DELETE FROM user WHERE user_id = {$userid}";
 
 if(mysqli_query($conn, $sql)) {
     header("Location:{$hostname}/admin/users.php");
+    // echo"<p stype='color:red; margin: 10px 0;'>Deleted Successful Record</p>";
 }else{
 echo"<p stype='color:red; margin: 10px 0;'>Can\'t Delete the user Record</p>";
 }
